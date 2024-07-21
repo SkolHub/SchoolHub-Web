@@ -251,7 +251,6 @@ function FloatingElements({
       {/* Mobile */}
       <div className='block sm:hidden'>
         <motion.img
-          ref={ref}
           className='absolute select-none w-[9.375rem]'
           animate={{
             x: [bBox.left, bBox.left - 37, bBox.left - 37],
@@ -268,7 +267,6 @@ function FloatingElements({
           alt='hat'
         />
         <motion.img
-          ref={ref}
           className='absolute select-none w-[9.625rem]'
           initial={{
             x: bBox.left + 120,
@@ -284,7 +282,6 @@ function FloatingElements({
           alt='crayons'
         />
         <motion.img
-          ref={ref}
           className='absolute select-none w-[8.5rem]'
           initial={{
             x: bBox.right - 90,
@@ -299,7 +296,6 @@ function FloatingElements({
         />
 
         <motion.img
-          ref={ref}
           className='absolute select-none w-[11.75rem]'
           animate={{
             x: [bBox.left, bBox.left - 65, bBox.left - 65],
@@ -316,7 +312,6 @@ function FloatingElements({
           alt='leaf'
         />
         <motion.img
-          ref={ref}
           className='absolute select-none w-[7.1875rem]'
           initial={{
             x: bBox.left + bBox.width / 2 - 77,
@@ -332,7 +327,6 @@ function FloatingElements({
           alt='compass'
         />
         <motion.img
-          ref={ref}
           className='absolute select-none w-[14.125rem]'
           animate={{
             x: [bBox.right - 230, bBox.right - 178, bBox.right - 178],
