@@ -37,7 +37,8 @@ const config: Config = {
         'secondary-700': '#3f45b6',
         'secondary-800': '#383a95',
         'secondary-900': '#313477',
-        'secondary-950': '#222349'
+        'secondary-950': '#222349',
+        'white-overlap': '#f6f7fd'
       }
     }
   },

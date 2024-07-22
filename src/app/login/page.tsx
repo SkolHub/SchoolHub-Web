@@ -17,19 +17,19 @@ export default function Page() {
   }, []);
 
   return (
-    <main className='bg-secondary-200 w-full h-full flex justify-center items-center relative overflow-hidden px-5 sm:px-8'>
+    <main className='relative flex h-full w-full items-center justify-center overflow-hidden bg-secondary-200 px-5 sm:px-8'>
       <div
         ref={formRef}
-        className='relative z-50  w-full max-w-[40rem] bg-secondary-50/70 shadow-[0_0_75.9px_-2px_rgba(0,0,0,.2)] rounded-[2rem] px-6 sm:px-12 pt-9 pb-20 sm:pb-24 flex items-center flex-col backdrop-blur-[17.5rem]'
+        className='relative z-50 flex w-full max-w-[40rem] flex-col items-center rounded-[2rem] bg-secondary-50/70 px-6 pb-20 pt-9 shadow-[0_0_75.9px_-2px_rgba(0,0,0,.2)] backdrop-blur-[17.5rem] sm:px-12 sm:pb-24'
       >
         <LogoExpanded className='hidden sm:block' />
         <Logo className='block sm:hidden' />
-        <div className='flex flex-col w-full gap-6'>
-          <form className='flex flex-col w-full gap-9 items-center'>
-            <h1 className='text-secondary-900 font-bold text-xl sm:text-[2rem] pt-4 sm:pt-10'>
+        <div className='flex w-full flex-col gap-6'>
+          <form className='flex w-full flex-col items-center gap-9'>
+            <h1 className='pt-4 text-xl font-bold text-secondary-900 sm:pt-10 sm:text-[2rem]'>
               Login
             </h1>
-            <div className='flex flex-col gap-4 w-full'>
+            <div className='flex w-full flex-col gap-4'>
               <FormInput placeholder='User...' label='User' />
               <FormInput placeholder='Password...' label='Password' password />
             </div>
@@ -37,23 +37,23 @@ export default function Page() {
               Login
             </PrimaryButton>
           </form>
-          <div className='flex justify-between items-center gap-4'>
-            <span className='font-semibold text-xs sm:text-base text-neutral-800'>
+          <div className='flex items-center justify-between gap-4'>
+            <span className='text-xs font-semibold text-neutral-800 sm:text-base'>
               Forgot your password? Click here to reset
             </span>
-            <i className='fa fa-arrow-right text-2xl text-black cursor-pointer !hidden sm:!flex' />
+            <i className='fa fa-arrow-right !hidden cursor-pointer text-2xl text-black sm:!flex' />
           </div>
         </div>
       </div>
-      <div className='absolute top-0 left-0 w-full h-full flex justify-center items-center'>
+      <div className='absolute left-0 top-0 flex h-full w-full items-center justify-center'>
         <img
-          className='w-[90%]  select-none'
+          className='w-[90%] select-none'
           src='/white-ellipse.svg'
           alt='ellipse'
         />
       </div>
       {canRender ? (
-        <div className='absolute top-0 left-0 w-full h-full'>
+        <div className='absolute left-0 top-0 h-full w-full'>
           <FloatingElements originRef={formRef} />
         </div>
       ) : (
@@ -251,7 +251,7 @@ function FloatingElements({
       {/* Mobile */}
       <div className='block sm:hidden'>
         <motion.img
-          className='absolute select-none w-[9.375rem]'
+          className='absolute w-[9.375rem] select-none'
           animate={{
             x: [bBox.left, bBox.left - 37, bBox.left - 37],
             y: [bBox.top - 20, bBox.top - 150, bBox.top - 82],
@@ -267,7 +267,7 @@ function FloatingElements({
           alt='hat'
         />
         <motion.img
-          className='absolute select-none w-[9.625rem]'
+          className='absolute w-[9.625rem] select-none'
           initial={{
             x: bBox.left + 120,
             y: bBox.top,
@@ -282,7 +282,7 @@ function FloatingElements({
           alt='crayons'
         />
         <motion.img
-          className='absolute select-none w-[8.5rem]'
+          className='absolute w-[8.5rem] select-none'
           initial={{
             x: bBox.right - 90,
             y: bBox.top
@@ -296,7 +296,7 @@ function FloatingElements({
         />
 
         <motion.img
-          className='absolute select-none w-[11.75rem]'
+          className='absolute w-[11.75rem] select-none'
           animate={{
             x: [bBox.left, bBox.left - 65, bBox.left - 65],
             y: [bBox.bottom - 120, bBox.bottom + 15, bBox.bottom - 80],
@@ -312,7 +312,7 @@ function FloatingElements({
           alt='leaf'
         />
         <motion.img
-          className='absolute select-none w-[7.1875rem]'
+          className='absolute w-[7.1875rem] select-none'
           initial={{
             x: bBox.left + bBox.width / 2 - 77,
             y: bBox.bottom - 120,
@@ -327,7 +327,7 @@ function FloatingElements({
           alt='compass'
         />
         <motion.img
-          className='absolute select-none w-[14.125rem]'
+          className='absolute w-[14.125rem] select-none'
           animate={{
             x: [bBox.right - 230, bBox.right - 178, bBox.right - 178],
             y: [bBox.bottom - 120, bBox.bottom + 15, bBox.bottom - 60],
