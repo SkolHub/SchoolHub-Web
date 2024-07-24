@@ -1,5 +1,15 @@
+'use client';
+
 import { Progress } from '@nextui-org/progress';
 import { cn } from '@nextui-org/theme';
+import { motion } from 'framer-motion';
+import {
+  ChartConfig,
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent
+} from '@/components/ui/chart';
+import { CartesianGrid, Line, LineChart, XAxis } from 'recharts';
 
 const subjects: {
   icon: string;
@@ -191,7 +201,17 @@ export default function Classbook() {
   const selected = 1;
 
   return (
-    <div className='flex h-full w-full overflow-hidden'>
+    <motion.div
+      initial={{ opacity: 0, scale: 0.95 }}
+      animate={{ opacity: 1, scale: 1 }}
+      exit={{ opacity: 0, scale: 0.95 }}
+      transition={{
+        type: 'keyframes',
+        ease: 'easeInOut',
+        duration: 0.2
+      }}
+      className='flex h-full w-full overflow-hidden'
+    >
       <div className='h-full w-[30rem] overflow-y-auto overflow-x-hidden rounded-l-[1.25rem] bg-white px-4 pt-7'>
         <h1 className='pl-2 text-xl font-semibold text-primary-900'>
           Overall average -{' '}
@@ -293,7 +313,7 @@ export default function Classbook() {
           </h1>
         )}
       </div>
-    </div>
+    </motion.div>
   );
 }
 
@@ -383,6 +403,20 @@ function SubjectCard({
   );
 }
 
+const chartData = [
+  { month: 'January', desktop: 186 },
+  { month: 'February', desktop: 305 },
+  { month: 'March', desktop: 237 },
+  { month: 'April', desktop: 73 },
+  { month: 'May', desktop: 209 },
+  { month: 'June', desktop: 214 }
+];
+const chartConfig = {
+  desktop: {
+    color: '#FF0000'
+  }
+} satisfies ChartConfig;
+
 function GradesCard({
   grades
 }: {
@@ -398,7 +432,38 @@ function GradesCard({
         <i className='fa fa-chart-simple pr-2 text-xl' />
         <label>Grades</label>
       </div>
-      <div></div>
+      <div>
+        <ChartContainer config={chartConfig}>
+          <LineChart
+            accessibilityLayer
+            data={chartData}
+            margin={{
+              left: 12,
+              right: 12
+            }}
+          >
+            <CartesianGrid vertical={false} />
+            <XAxis
+              dataKey='month'
+              tickLine={false}
+              axisLine={false}
+              tickMargin={8}
+              tickFormatter={(value) => value.slice(0, 3)}
+            />
+            <ChartTooltip
+              cursor={false}
+              content={<ChartTooltipContent hideLabel />}
+            />
+            <Line
+              dataKey='desktop'
+              type='linear'
+              stroke='var(--color-desktop)'
+              strokeWidth={2}
+              dot={false}
+            />
+          </LineChart>
+        </ChartContainer>
+      </div>
       <div className='flex justify-between gap-4'>
         <div className='flex max-w-40 grow flex-col'>
           <h3 className='text-[0.875rem] font-semibold text-primary-600'>
