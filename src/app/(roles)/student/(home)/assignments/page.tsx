@@ -55,13 +55,13 @@ const assignments: {
 export default function Assignments() {
   return (
     <motion.div
+      key='assignments'
       initial={{ opacity: 0, scale: 0.95 }}
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, scale: 0.95 }}
       transition={{
         type: 'keyframes',
-        ease: 'easeInOut',
-        duration: 0.2
+        ease: 'easeInOut'
       }}
       className='flex h-full w-full items-start gap-4 overflow-auto'
     >
@@ -100,8 +100,8 @@ function AssignmentColumn({
         </label>
       </div>
       <div className='flex flex-col gap-2'>
-        {assignments.map((assignment) => (
-          <AssignmentCard {...assignment} />
+        {assignments.map((assignment, index) => (
+          <AssignmentCard key={index} {...assignment} />
         ))}
       </div>
     </div>

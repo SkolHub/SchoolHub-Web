@@ -1,12 +1,31 @@
-import { ReactNode } from 'react';
-
 export interface StudentSubjectModel {
   icon: string;
   title: string;
   teachers: string[];
 }
 
-export interface AnimatedTabModel {
-  static: ReactNode;
-  animated: ReactNode;
+export type Post =
+  | ({ type: 'Announcement' } & AnnouncementModel)
+  | ({ type: 'Assignment' } & AssignmentModel);
+
+export interface AnnouncementModel {
+  title: string;
+  body: string;
+  member: string;
+  timestamp: Date;
+  attachments: number;
+  comments: number;
+}
+
+export interface AssignmentModel {
+  title: string;
+  member: string;
+  timestamp: Date;
+  attachments: number;
+  comments: number;
+}
+
+export interface PostSectionModel {
+  posts: Post[];
+  name: string;
 }

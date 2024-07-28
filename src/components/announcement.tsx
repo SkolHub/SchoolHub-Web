@@ -1,0 +1,52 @@
+import { AnnouncementModel } from '@/lib/types';
+
+export default function Announcement({
+  title,
+  body,
+  member,
+  timestamp,
+  attachments,
+  comments
+}: AnnouncementModel) {
+  return (
+    <div className='flex justify-between gap-8 rounded-2xl bg-white p-4'>
+      <div className='flex flex-col gap-2'>
+        <h1 className='text-base font-semibold text-primary-900'>{title}</h1>
+        <p className='text-xs font-medium text-primary-800'>{body}</p>
+      </div>
+      <div className='flex flex-col items-end gap-8 text-primary-700'>
+        <div className='flex flex-col items-end gap-1'>
+          <label className='text-xs font-semibold'>{member}</label>
+          <label className='min-w-max text-xs font-semibold'>
+            {timestamp.getHours()}:{timestamp.getMinutes()},{' '}
+            {timestamp.getDate()}{' '}
+            {timestamp.toLocaleString('en-US', { month: 'long' })}{' '}
+            {timestamp.getFullYear()}
+          </label>
+        </div>
+        <div className='flex flex-col items-end gap-2'>
+          {attachments ? (
+            <div className='flex min-w-max gap-1'>
+              <i className='fa fa-file-check' />
+              <label className='text-xs font-semibold'>
+                {attachments} attachment{attachments > 1 && 's'}
+              </label>
+            </div>
+          ) : (
+            ''
+          )}
+          {comments ? (
+            <div className='flex min-w-max gap-1'>
+              <i className='fa fa-comments' />
+              <label className='text-xs font-semibold'>
+                {comments} comment{comments > 1 && 's'}
+              </label>
+            </div>
+          ) : (
+            ''
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
