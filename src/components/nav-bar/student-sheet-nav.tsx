@@ -1,6 +1,6 @@
-import NavWrapper from '@/components/nav-bar/nav-wrapper';
-import { StudentSubjectModel } from '@/lib/types';
+import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import StudentClass from '@/components/nav-bar/student-class';
+import { StudentSubjectModel } from '@/lib/types';
 
 const schoolClasses: {
   title: string;
@@ -103,12 +103,19 @@ const schoolClasses: {
   }
 ];
 
-export default function StudentNav() {
+export default function StudentSheetNav() {
   return (
-    <NavWrapper>
-      {schoolClasses.map((schoolClass, index) => (
-        <StudentClass key={index} {...schoolClass} />
-      ))}
-    </NavWrapper>
+    <Sheet>
+      <SheetTrigger className='flex min-[1400px]:!hidden' asChild>
+        <i className='fa fa-bars text-xl' />
+      </SheetTrigger>
+      <SheetContent className='bg-white-overlap pb-0' side='left'>
+        <div className='h-full overflow-auto pb-6 scrollbar-hide'>
+          {schoolClasses.map((schoolClass, index) => (
+            <StudentClass key={index} {...schoolClass} />
+          ))}
+        </div>
+      </SheetContent>
+    </Sheet>
   );
 }

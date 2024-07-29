@@ -1,9 +1,8 @@
 'use client';
 
 import PostSectionButtons from '@/components/post-section-buttons';
-import { Post } from '@/lib/types';
 import PostList from '@/components/post-list';
-import AnimatedPage from '@/components/animated-page';
+import { Post } from '@/lib/types';
 
 const posts: Post[] = [
   {
@@ -75,16 +74,17 @@ const posts: Post[] = [
     title: 'History Essay'
   }
 ];
+
 export default function Stream() {
   return (
-    <AnimatedPage
+    <div
       key='stream'
-      className='mb-4 flex grow flex-col gap-2.5 overflow-hidden rounded-[1.25rem] bg-white/70 px-4 pt-4'
+      className='mb-4 box-border flex grow flex-col gap-2.5 overflow-hidden rounded-[1.25rem] bg-white/70 px-4 pt-4'
     >
       <PostSectionButtons />
       <div className='flex h-full flex-col gap-2.5 overflow-auto pb-4 scrollbar-hide'>
         <PostList posts={posts} />
       </div>
-    </AnimatedPage>
+    </div>
   );
 }

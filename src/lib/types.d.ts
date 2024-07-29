@@ -29,3 +29,9 @@ export interface PostSectionModel {
   posts: Post[];
   name: string;
 }
+
+export interface TabModel {
+  icon: string;
+  title: string;
+  href: string;
+}

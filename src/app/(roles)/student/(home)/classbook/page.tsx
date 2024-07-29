@@ -1,144 +1,131 @@
 'use client';
 
-import { motion } from 'framer-motion';
 import SubjectList from '@/app/(roles)/student/(home)/classbook/_components/subject-list';
 import { useState } from 'react';
 import SubjectHeaderCard from '@/app/(roles)/student/(home)/classbook/_components/subject-header-card';
 import GradesCard from '@/components/grades-card';
 import AbsencesCard from '@/components/absences-card';
+import AnimatedPage from '@/components/animated-page';
 
-const subjects: {
-  icon: string;
-  title: string;
-  grades: number;
-  maxGrades: number;
-  average: number;
-}[] = [
+const subjects = [
   {
-    icon: 'leaf',
+    icon: 'hat',
     title: 'Matematică',
-    average: 10,
+    average: 9,
+    grades: 3,
+    maxGrades: 4
+  },
+  {
+    icon: 'tube',
+    title: 'Fizică',
+    average: 8,
     grades: 4,
+    maxGrades: 6
+  },
+  {
+    icon: 'flask',
+    title: 'Chimie',
+    average: 7,
+    grades: 2,
     maxGrades: 5
   },
   {
     icon: 'leaf',
-    title: 'Matematică',
+    title: 'Biologie',
+    average: 10,
+    grades: 5,
+    maxGrades: 6
+  },
+  {
+    icon: 'book',
+    title: 'Istorie',
+    average: 6,
+    grades: 3,
+    maxGrades: 4
+  },
+  {
+    icon: 'compass',
+    title: 'Geografie',
     average: 9,
     grades: 4,
     maxGrades: 5
   },
   {
-    icon: 'leaf',
-    title: 'Matematică',
-    average: 10,
+    icon: 'books',
+    title: 'Engleză',
+    average: 8,
     grades: 4,
-    maxGrades: 5
+    maxGrades: 7
   },
   {
-    icon: 'leaf',
-    title: 'Matematică',
+    icon: 'todo',
+    title: 'Sport',
+    average: 7,
+    grades: 3,
+    maxGrades: 7
+  },
+  {
+    icon: 'computer',
+    title: 'Informatica',
+    average: 10,
+    grades: 5,
+    maxGrades: 6
+  },
+  {
+    icon: 'todo',
+    title: 'Muzică',
+    average: 6,
+    grades: 2,
+    maxGrades: 3
+  },
+  {
+    icon: 'crayons',
+    title: 'Arte Plastice',
     average: 9,
     grades: 4,
+    maxGrades: 4
+  },
+  {
+    icon: 'book',
+    title: 'Limba Franceză',
+    average: 8,
+    grades: 3,
     maxGrades: 5
   },
   {
-    icon: 'leaf',
-    title: 'Matematică',
+    icon: 'books',
+    title: 'Literatură',
+    average: 7,
+    grades: 2,
+    maxGrades: 4
+  },
+  {
+    icon: 'hat',
+    title: 'Educație Civică',
     average: 10,
-    grades: 4,
+    grades: 5,
     maxGrades: 5
   },
   {
-    icon: 'leaf',
-    title: 'Matematică',
+    icon: 'computer',
+    title: 'Tehnologie',
     average: 9,
     grades: 4,
-    maxGrades: 5
+    maxGrades: 6
   },
   {
-    icon: 'leaf',
-    title: 'Matematică',
-    average: 10,
-    grades: 4,
-    maxGrades: 5
+    icon: 'computer',
+    title: 'ACSL',
+    average: 8,
+    grades: 3,
+    maxGrades: 6
   },
   {
-    icon: 'leaf',
-    title: 'Matematică',
-    average: 9,
-    grades: 4,
-    maxGrades: 5
-  },
-  {
-    icon: 'leaf',
-    title: 'Matematică',
-    average: 10,
-    grades: 4,
-    maxGrades: 5
-  },
-  {
-    icon: 'leaf',
-    title: 'Matematică',
-    average: 9,
-    grades: 4,
-    maxGrades: 5
-  },
-  {
-    icon: 'leaf',
-    title: 'Matematică',
-    average: 10,
-    grades: 4,
-    maxGrades: 5
-  },
-  {
-    icon: 'leaf',
-    title: 'Matematică',
-    average: 9,
-    grades: 4,
-    maxGrades: 5
-  },
-  {
-    icon: 'leaf',
-    title: 'Matematică',
-    average: 10,
-    grades: 4,
-    maxGrades: 5
-  },
-  {
-    icon: 'leaf',
-    title: 'Matematică',
-    average: 9,
-    grades: 4,
-    maxGrades: 5
-  },
-  {
-    icon: 'leaf',
-    title: 'Matematică',
-    average: 10,
-    grades: 4,
-    maxGrades: 5
-  },
-  {
-    icon: 'leaf',
-    title: 'Matematică',
-    average: 9,
-    grades: 4,
-    maxGrades: 5
-  },
-  {
-    icon: 'leaf',
-    title: 'Matematică',
-    average: 10,
-    grades: 4,
-    maxGrades: 5
-  },
-  {
-    icon: 'leaf',
-    title: 'Matematică',
-    average: 9,
-    grades: 4,
-    maxGrades: 5
+    icon: 'computer',
+    title: 'InfoEducație',
+    average: 7,
+    grades: 2,
+    maxGrades: 4
   }
 ];
 
@@ -148,46 +135,51 @@ const subject = {
   icon: 'leaf',
   grades: [
     {
-      value: 10,
-      teacher: 'teacher 1',
-      date: new Date()
+      value: 8,
+      teacher: 'Prof. Ionescu',
+      date: new Date('2024-02-15T14:22:00Z')
+    },
+    {
+      value: 7,
+      teacher: 'Dr. Georgescu',
+      date: new Date('2024-03-10T09:30:00Z')
+    },
+    {
+      value: 9,
+      teacher: 'Prof. Radu',
+      date: new Date('2024-01-25T11:45:00Z')
+    },
+    {
+      value: 6,
+      teacher: 'Dr. Munteanu',
+      date: new Date('2024-04-05T16:20:00Z')
     },
     {
       value: 10,
-      teacher: 'teacher 1',
-      date: new Date()
-    },
-    {
-      value: 10,
-      teacher: 'teacher 1',
-      date: new Date()
-    },
-    {
-      value: 10,
-      teacher: 'teacher 1',
-      date: new Date()
+      teacher: 'Prof. Iancu',
+      date: new Date('2024-05-12T08:55:00Z')
     }
   ],
   absences: [
     {
       excused: true,
-      teacher: 'teacher 1',
-      date: new Date()
-    },
-    {
-      excused: true,
-      teacher: 'teacher 1',
-      date: new Date()
+      teacher: 'Prof. Ionescu',
+      date: new Date('2024-02-15T14:22:00Z')
     },
     {
       excused: false,
-      teacher: 'teacher 1',
-      date: new Date()
+      teacher: 'Dr. Georgescu',
+      date: new Date('2024-03-10T09:30:00Z')
     },
     {
       excused: true,
-      teacher: 'teacher 1',
-      date: new Date()
+      teacher: 'Prof. Radu',
+      date: new Date('2024-01-25T11:45:00Z')
+    },
+    {
+      excused: true,
+      teacher: 'Dr. Munteanu',
+      date: new Date('2024-04-05T16:20:00Z')
     }
   ]
 };
@@ -200,17 +192,7 @@ export default function Classbook() {
   }
 
   return (
-    <motion.div
-      key='classbook'
-      initial={{ opacity: 0, scale: 0.95 }}
-      animate={{ opacity: 1, scale: 1 }}
-      exit={{ opacity: 0, scale: 0.95 }}
-      transition={{
-        type: 'keyframes',
-        ease: 'easeInOut'
-      }}
-      className='flex h-full w-full overflow-hidden'
-    >
+    <AnimatedPage key='classbook'>
       <SubjectList
         subjects={subjects}
         selected={selected}
@@ -221,10 +203,10 @@ export default function Classbook() {
           <>
             <SubjectHeaderCard
               {...subject}
-              grades={2}
-              maxGrades={3}
-              average={10}
-              absences={5}
+              grades={5}
+              maxGrades={6}
+              average={8}
+              absences={4}
               unexcusedAbsences={1}
               assessmentChance={22}
             />
@@ -237,6 +219,6 @@ export default function Classbook() {
           </h1>
         )}
       </div>
-    </motion.div>
+    </AnimatedPage>
   );
 }

@@ -3,17 +3,12 @@
 import { ReactNode } from 'react';
 import { AnimatePresence } from 'framer-motion';
 import { TabModel } from '@/lib/types';
-import StudentHeader from '@/components/student-header';
+import TeacherHeader from '@/components/teacher-header';
 
 const tabs: TabModel[] = [
   {
-    title: 'Classbook',
-    href: '/student/classbook',
-    icon: 'fa-chart-simple'
-  },
-  {
     title: 'Assignments',
-    href: '/student/assignments',
+    href: '/teacher/assignments',
     icon: 'fa-file-lines'
   }
 ];
@@ -21,7 +16,7 @@ const tabs: TabModel[] = [
 export default function Layout({ children }: { children: ReactNode }) {
   return (
     <>
-      <StudentHeader tabs={tabs} />
+      <TeacherHeader tabs={tabs} />
       <AnimatePresence initial={false} mode='popLayout'>
         <main className='w-full grow overflow-hidden pb-4'>{children}</main>
       </AnimatePresence>

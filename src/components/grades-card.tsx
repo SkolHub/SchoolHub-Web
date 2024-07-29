@@ -10,14 +10,6 @@ import { Progress } from '@nextui-org/progress';
 import { cn } from '@nextui-org/theme';
 import { CartesianGrid, Line, LineChart, XAxis, YAxis } from 'recharts';
 
-const chartData = [
-  { grade: 4, date: new Date() },
-  { grade: 2, date: new Date() },
-  { grade: 1, date: new Date() },
-  { grade: 4, date: new Date() },
-  { grade: 5, date: new Date() },
-  { grade: 10, date: new Date() }
-];
 const chartConfig = {
   desktop: {
     color: '#FF0000'
@@ -49,7 +41,7 @@ export default function GradesCard({
       <ChartContainer className='py-8' config={chartConfig}>
         <LineChart
           accessibilityLayer
-          data={chartData}
+          data={grades}
           margin={{
             left: 12,
             right: 12
@@ -66,7 +58,7 @@ export default function GradesCard({
             }
           />
           <YAxis
-            dataKey='grade'
+            dataKey='value'
             tickLine={false}
             axisLine={false}
             tickMargin={8}
@@ -78,7 +70,7 @@ export default function GradesCard({
             content={<ChartTooltipContent hideLabel />}
           />
           <Line
-            dataKey='grade'
+            dataKey='value'
             label='test'
             type='linear'
             stroke='#5d71d4'

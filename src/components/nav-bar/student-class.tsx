@@ -1,5 +1,6 @@
 import { StudentSubjectModel } from '@/lib/types';
 import StudentSubject from '@/components/nav-bar/student-subject';
+import Link from 'next/link';
 
 export default function StudentClass({
   title,
@@ -9,9 +10,8 @@ export default function StudentClass({
   subjects: StudentSubjectModel[];
 }) {
   return (
-    <div>
-      {/*Add for sticky class titles: "bg-white-overlap sticky left-0 top-0"*/}
-      <h3 className='text-[0.9375rem] font-semibold text-primary-900 bg-white-overlap sticky left-0 top-0'>
+    <Link href='/student/subject/1/stream'>
+      <h3 className='sticky left-0 top-[-2px] bg-white-overlap text-[0.9375rem] font-semibold text-primary-900'>
         {title}
       </h3>
       <div className='flex flex-col gap-2'>
@@ -19,6 +19,6 @@ export default function StudentClass({
           <StudentSubject key={index} {...subject} />
         ))}
       </div>
-    </div>
+    </Link>
   );
 }

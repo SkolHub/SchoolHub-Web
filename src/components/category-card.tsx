@@ -1,16 +1,24 @@
 import { ReactNode } from 'react';
+import { cn } from '@nextui-org/theme';
 
 export default function CategoryCard({
   title,
   icon,
-  children
+  children,
+  className = ''
 }: {
   title: string;
   icon: string;
   children: ReactNode;
+  className?: string;
 }) {
   return (
-    <div className='flex flex-col rounded-2xl bg-white px-5 pb-8 pt-3'>
+    <div
+      className={cn(
+        'flex flex-col rounded-2xl bg-white px-5 pb-6 pt-3',
+        className
+      )}
+    >
       <div className='flex items-center justify-between gap-8'>
         <div className='flex items-center gap-2'>
           <i className={`fa ${icon} text-xl text-primary-800`} />

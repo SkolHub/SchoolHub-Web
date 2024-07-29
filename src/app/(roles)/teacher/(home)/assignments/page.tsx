@@ -1,7 +1,7 @@
 'use client';
 
-import AnimatedPage from '@/components/animated-page';
 import AssignmentColumn from '@/components/assignment-column';
+import AnimatedPage from '@/components/animated-page';
 
 const assignments_1 = [
   {
@@ -138,61 +138,15 @@ const assignments_3 = [
   }
 ];
 
-const assignments_4 = [
-  {
-    title: 'Exerciții de geometrie',
-    icon: 'compass',
-    subject: 'Matematică',
-    due: new Date('2024-01-15T12:00:00Z')
-  },
-  {
-    title: 'Rădăcini pătrate și cubice',
-    icon: 'calculator',
-    subject: 'Matematică',
-    due: new Date('2024-02-05T10:30:00Z')
-  },
-  {
-    title: 'Calculul limitelor',
-    icon: 'leaf',
-    subject: 'Matematică',
-    due: new Date('2024-03-01T13:00:00Z')
-  },
-  {
-    title: 'Studii de caz matematice',
-    icon: 'book',
-    subject: 'Matematică',
-    due: new Date('2024-03-25T15:00:00Z')
-  },
-  {
-    title: 'Teoria grafurilor',
-    icon: 'crayons',
-    subject: 'Matematică',
-    due: new Date('2024-04-10T11:00:00Z')
-  },
-  {
-    title: 'Fizica matematică',
-    icon: 'tube',
-    subject: 'Matematică',
-    due: new Date('2024-04-20T09:30:00Z')
-  },
-  {
-    title: 'Probleme de matematică aplicată',
-    icon: 'computer',
-    subject: 'Matematică',
-    due: new Date('2024-05-05T12:30:00Z')
-  }
-];
-
 export default function Assignments() {
   return (
-    <AnimatedPage
-      key='assignments'
-      className='items-start gap-4 !overflow-auto'
-    >
-      <AssignmentColumn assignments={assignments_1} title='Missing' />
-      <AssignmentColumn assignments={assignments_2} title='No due date' />
-      <AssignmentColumn assignments={assignments_3} title='This week' />
-      <AssignmentColumn assignments={assignments_4} title='Later' />
+    <AnimatedPage key='assignments' className='items-start gap-4 overflow-auto'>
+      <AssignmentColumn assignments={assignments_1} title='Ongoing' />
+      <AssignmentColumn assignments={assignments_2} title='To grade' />
+      <AssignmentColumn
+        assignments={assignments_3}
+        title='Finished this week'
+      />
     </AnimatedPage>
   );
 }

@@ -9,7 +9,7 @@ export default function Profile({
 }) {
   return (
     <Link className={`flex justify-end ${className}`} href='/profile'>
-      <img className='w-10' src={src} alt='profile' />
+      <img className='w-10' src='/profile.png' alt='profile' />
     </Link>
   );
 }

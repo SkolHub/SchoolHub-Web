@@ -1,7 +1,8 @@
 'use client';
 
-import { PostSectionModel } from '@/lib/types';
 import { PostSection } from '@/components/post-section';
+import { PostSectionModel } from '@/lib/types';
+import { Button } from '@nextui-org/button';
 import AnimatedPage from '@/components/animated-page';
 
 const sections: PostSectionModel[] = [
@@ -97,6 +98,12 @@ export default function Classwork() {
       key='classwork'
       className='flex flex-col gap-6 overflow-auto pb-4 scrollbar-hide'
     >
+      <Button className='flex h-auto shrink-0 items-center justify-center gap-2.5 rounded-full bg-white/70 px-4 py-3'>
+        <i className='fa fa-plus text-2xl text-primary-900' />
+        <label className='min-h-fit text-[0.875rem] font-semibold text-primary-900'>
+          New section
+        </label>
+      </Button>
       {sections.map((section, index) => (
         <PostSection key={index} {...section} />
       ))}

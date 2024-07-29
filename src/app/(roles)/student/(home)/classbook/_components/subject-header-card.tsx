@@ -65,8 +65,8 @@ export default function SubjectHeaderCard({
             <label className='text-base font-semibold text-red-600'>
               {unexcusedAbsences}
             </label>
-            <span className='text-center text-xs font-medium text-primary-700'>
-              unexcused absences
+            <span className='max-w-min text-center text-xs font-medium text-primary-700'>
+              unexcused absence{unexcusedAbsences === 1 ? '' : 's'}
             </span>
           </div>
           <div className='border-left-white/70 h-10 self-center border-l-1' />

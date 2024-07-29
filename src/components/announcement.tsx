@@ -9,22 +9,22 @@ export default function Announcement({
   comments
 }: AnnouncementModel) {
   return (
-    <div className='flex justify-between gap-8 rounded-2xl bg-white p-4'>
+    <div className='flex flex-col justify-between gap-4 rounded-2xl bg-white p-4 sm:flex-row sm:gap-8'>
       <div className='flex flex-col gap-2'>
         <h1 className='text-base font-semibold text-primary-900'>{title}</h1>
         <p className='text-xs font-medium text-primary-800'>{body}</p>
       </div>
-      <div className='flex flex-col items-end gap-8 text-primary-700'>
-        <div className='flex flex-col items-end gap-1'>
+      <div className='flex flex-col-reverse items-start gap-4 text-primary-700 sm:items-end sm:gap-8'>
+        <div className='flex flex-col items-end gap-1 self-end sm:self-auto'>
           <label className='text-xs font-semibold'>{member}</label>
           <label className='min-w-max text-xs font-semibold'>
-            {timestamp.getHours()}:{timestamp.getMinutes()},{' '}
-            {timestamp.getDate()}{' '}
+            {('0' + timestamp.getHours()).slice(-2)}:
+            {('0' + timestamp.getMinutes()).slice(-2)}{' '}
             {timestamp.toLocaleString('en-US', { month: 'long' })}{' '}
             {timestamp.getFullYear()}
           </label>
         </div>
-        <div className='flex flex-col items-end gap-2'>
+        <div className='flex flex-row items-start gap-2 sm:flex-col sm:items-end'>
           {attachments ? (
             <div className='flex min-w-max gap-1'>
               <i className='fa fa-file-check' />
