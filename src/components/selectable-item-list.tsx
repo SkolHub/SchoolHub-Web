@@ -1,4 +1,5 @@
 import { cn } from '@nextui-org/theme';
+import { Subject } from '@/api/subject';
 
 export default function SelectableItemList({
   items,
@@ -6,13 +7,7 @@ export default function SelectableItemList({
   onSelected = () => undefined,
   className = ''
 }: {
-  items: {
-    icon?: string;
-    title: string;
-    grades: number;
-    maxGrades: number;
-    average: number;
-  }[];
+  items: Subject[];
   selected: number;
   onSelected?: (index: number) => void;
   className?: string;
@@ -23,15 +18,15 @@ export default function SelectableItemList({
         <div
           key={index}
           className={cn(
-            'flex items-center rounded-[0.635rem] px-1.5',
-            index === selected ? 'bg-secondary-500' : ''
+            'flex cursor-pointer items-center rounded-[0.635rem] px-1.5',
+            +item.id == selected ? 'bg-secondary-500' : ''
           )}
           onClick={() => {
-            onSelected(index);
+            onSelected(+item.id);
           }}
         >
           {item.icon ? (
-            <img className='w-9' src={`/${item.icon}.png`} alt='icon' />
+            <img className='mr-3 w-9' src={`/${item.icon}.png`} alt='icon' />
           ) : (
             ''
           )}
@@ -39,25 +34,29 @@ export default function SelectableItemList({
             <h3
               className={cn(
                 'text-[0.9375rem] font-semibold',
-                index === selected ? 'text-primary-50' : 'text-primary-900'
+                +item.id == selected ? 'text-primary-50' : 'text-primary-900'
               )}
             >
-              {item.title}
+              {item.name}
             </h3>
             <div className='flex gap-4'>
               <div className='flex flex-col items-center'>
                 <label
                   className={cn(
                     'text-[0.9375rem] font-semibold',
-                    index === selected ? 'text-primary-50' : 'text-primary-900'
+                    +item.id == selected
+                      ? 'text-primary-50'
+                      : 'text-primary-900'
                   )}
                 >
-                  {item.grades}/{item.maxGrades}
+                  {item.grades}/{item.metadata.minGrades}
                 </label>
                 <span
                   className={cn(
                     'text-[0.6875rem] font-medium',
-                    index === selected ? 'text-primary-100' : 'text-primary-700'
+                    +item.id == selected
+                      ? 'text-primary-100'
+                      : 'text-primary-700'
                   )}
                 >
                   grades
@@ -67,15 +66,19 @@ export default function SelectableItemList({
                 <label
                   className={cn(
                     'text-[0.9375rem] font-semibold',
-                    index === selected ? 'text-primary-50' : 'text-primary-900'
+                    +item.id == selected
+                      ? 'text-primary-50'
+                      : 'text-primary-900'
                   )}
                 >
-                  {item.average}
+                  {item.average?.toFixed(2)}
                 </label>
                 <span
                   className={cn(
                     'text-[0.6875rem] font-medium',
-                    index === selected ? 'text-primary-100' : 'text-primary-700'
+                    +item.id == selected
+                      ? 'text-primary-100'
+                      : 'text-primary-700'
                   )}
                 >
                   average

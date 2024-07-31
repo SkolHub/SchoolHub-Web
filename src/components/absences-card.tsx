@@ -8,19 +8,7 @@ import {
 } from '@/components/ui/chart';
 import { cn } from '@nextui-org/theme';
 import { Bar, BarChart, CartesianGrid, XAxis } from 'recharts';
-
-const chartData = [
-  { month: 'September', absences: 186 },
-  { month: 'October', absences: 305 },
-  { month: 'November', absences: 237 },
-  { month: 'December', absences: 73 },
-  { month: 'January', absences: 186 },
-  { month: 'February', absences: 305 },
-  { month: 'March', absences: 237 },
-  { month: 'April', absences: 73 },
-  { month: 'May', absences: 209 },
-  { month: 'June', absences: 214 }
-];
+import { Absence } from '@/api/grade';
 
 const chartConfig = {
   absences: {
@@ -37,13 +25,30 @@ export default function AbsencesCard({
   absences,
   className = ''
 }: {
-  absences: {
-    excused: boolean;
-    teacher: string;
-    date: Date;
-  }[];
+  absences: Absence[];
   className?: string;
 }) {
+  let absencesPerMonth: number[] = [];
+  for (let i = 0; i < 12; i++) {
+    absencesPerMonth[i] = 0;
+  }
+  absences.forEach((absence) => {
+    absencesPerMonth[new Date(absence.date).getMonth()]++;
+  });
+
+  const chartData = [
+    { month: 'September', absences: absencesPerMonth[8] },
+    { month: 'October', absences: absencesPerMonth[9] },
+    { month: 'November', absences: absencesPerMonth[10] },
+    { month: 'December', absences: absencesPerMonth[11] },
+    { month: 'January', absences: absencesPerMonth[0] },
+    { month: 'February', absences: absencesPerMonth[1] },
+    { month: 'March', absences: absencesPerMonth[2] },
+    { month: 'April', absences: absencesPerMonth[3] },
+    { month: 'May', absences: absencesPerMonth[4] },
+    { month: 'June', absences: absencesPerMonth[5] }
+  ];
+
   return (
     <div
       className={cn(
@@ -78,7 +83,7 @@ export default function AbsencesCard({
             {absences.map((absence, index) => (
               <div key={index} className='flex items-center gap-2'>
                 <label className='text-[0.875rem] font-semibold text-primary-900'>
-                  {absence.date.toDateString()}
+                  {new Date(absence.date).toLocaleDateString()}
                 </label>
               </div>
             ))}
@@ -92,7 +97,7 @@ export default function AbsencesCard({
             {absences.map((absence, index) => (
               <div key={index} className='flex items-center gap-2'>
                 <label className='text-[0.875rem] font-semibold text-primary-900'>
-                  {absence.teacher}
+                  {absence.teacher.name}
                 </label>
               </div>
             ))}

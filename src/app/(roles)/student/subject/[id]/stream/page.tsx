@@ -4,6 +4,7 @@ import PostSectionButtons from '@/components/post-section-buttons';
 import { Post } from '@/lib/types';
 import PostList from '@/components/post-list';
 import AnimatedPage from '@/components/animated-page';
+import { useGetStudentSubjectPosts } from '@/api/post';
 
 const posts: Post[] = [
   {
@@ -75,15 +76,25 @@ const posts: Post[] = [
     title: 'History Essay'
   }
 ];
-export default function Stream() {
+export default function Stream({ params: { id } }: { params: { id: string } }) {
+  const posts = useGetStudentSubjectPosts(id);
+
+  if (posts.isPending) {
+    return <p>Loading...</p>;
+  }
+
+  if (posts.isError) {
+    return <p>Error: {posts.error.message}</p>;
+  }
+
   return (
     <AnimatedPage
       key='stream'
       className='mb-4 flex grow flex-col gap-2.5 overflow-hidden rounded-[1.25rem] bg-white/70 px-4 pt-4'
     >
-      <PostSectionButtons />
+      {/*<PostSectionButtons />*/}
       <div className='flex h-full flex-col gap-2.5 overflow-auto pb-4 scrollbar-hide'>
-        <PostList posts={posts} />
+        <PostList posts={posts.data} />
       </div>
     </AnimatedPage>
   );

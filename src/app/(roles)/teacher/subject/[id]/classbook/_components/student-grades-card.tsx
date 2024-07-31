@@ -1,13 +1,10 @@
 import { Progress } from '@nextui-org/progress';
+import { Grade } from '@/api/grade';
 
 export default function StudentGradesCard({
   grades
 }: {
-  grades: {
-    value: number;
-    teacher: string;
-    date: Date;
-  }[];
+  grades: Grade[];
 }) {
   return (
     <div className='flex flex-col gap-4 rounded-xl bg-white p-4'>
@@ -28,7 +25,7 @@ export default function StudentGradesCard({
                   classNames={{
                     indicator: 'bg-secondary-500'
                   }}
-                  value={grade.value}
+                  value={+grade.value}
                   maxValue={10}
                   size='sm'
                 />
@@ -44,7 +41,7 @@ export default function StudentGradesCard({
             {grades.map((grade, index) => (
               <div key={index} className='flex items-center gap-2'>
                 <label className='text-[0.875rem] font-semibold text-primary-900'>
-                  {grade.date.toDateString()}
+                  {new Date(grade.date).toDateString()}
                 </label>
               </div>
             ))}

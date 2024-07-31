@@ -2,6 +2,7 @@
 
 import AnimatedPage from '@/components/animated-page';
 import AssignmentColumn from '@/components/assignment-column';
+import { Post, useGetStudentOrganizationAssignments } from '@/api/post';
 
 const assignments_1 = [
   {
@@ -184,15 +185,48 @@ const assignments_4 = [
 ];
 
 export default function Assignments() {
+  const assignments = useGetStudentOrganizationAssignments();
+
+  if (assignments.isPending) {
+    return <p>Loading...</p>;
+  }
+
+  if (assignments.isError) {
+    return <p>Error: {assignments.error.message}</p>;
+  }
+
+  let missingAssignments: Post[] = [];
+  let noDueDateAssignments: Post[] = [];
+  let thisWeekAssignments: Post[] = [];
+  let laterAssignments: Post[] = [];
+
+  assignments.data.forEach((assignment) => {
+    if (!assignment.dueDate) {
+      noDueDateAssignments.push(assignment);
+    } else if (new Date(assignment.dueDate).getTime() < new Date().getTime()) {
+      missingAssignments.push(assignment);
+    } else if (
+      new Date(assignment.dueDate).getTime() <
+      new Date().getTime() + 7 * 24 * 60 * 60 * 1000
+    ) {
+      thisWeekAssignments.push(assignment);
+    } else {
+      laterAssignments.push(assignment);
+    }
+  });
+
   return (
     <AnimatedPage
       key='assignments'
       className='items-start gap-4 !overflow-auto'
     >
-      <AssignmentColumn assignments={assignments_1} title='Missing' />
-      <AssignmentColumn assignments={assignments_2} title='No due date' />
-      <AssignmentColumn assignments={assignments_3} title='This week' />
-      <AssignmentColumn assignments={assignments_4} title='Later' />
+      <AssignmentColumn assignments={missingAssignments} title='Missing' />
+      <AssignmentColumn
+        assignments={noDueDateAssignments}
+        title='No due date'
+      />
+      <AssignmentColumn assignments={thisWeekAssignments} title='This week' />
+      <AssignmentColumn assignments={laterAssignments} title='Later' />
     </AnimatedPage>
   );
 }

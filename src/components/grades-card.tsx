@@ -9,6 +9,7 @@ import {
 import { Progress } from '@nextui-org/progress';
 import { cn } from '@nextui-org/theme';
 import { CartesianGrid, Line, LineChart, XAxis, YAxis } from 'recharts';
+import { Grade } from '@/api/grade';
 
 const chartConfig = {
   desktop: {
@@ -20,11 +21,7 @@ export default function GradesCard({
   grades,
   className = ''
 }: {
-  grades: {
-    value: number;
-    teacher: string;
-    date: Date;
-  }[];
+  grades: Grade[];
   className?: string;
 }) {
   return (
@@ -53,16 +50,18 @@ export default function GradesCard({
             tickLine={false}
             tickMargin={10}
             axisLine={false}
-            tickFormatter={(value: Date) =>
-              `${('0' + value.getDate()).slice(-2)}.${('0' + (value.getMonth() + 1)).slice(-2)}`
+            tickFormatter={(value: string) =>
+              `${('0' + new Date(value).getDate()).slice(-2)}.${('0' + (new Date(value).getMonth() + 1)).slice(-2)}`
+              // new Date(value).toLocaleDateString()
             }
           />
           <YAxis
             dataKey='value'
+            type='number'
             tickLine={false}
             axisLine={false}
             tickMargin={8}
-            domain={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
+            domain={[0, 10]}
             tickCount={10}
           />
           <ChartTooltip
@@ -93,7 +92,7 @@ export default function GradesCard({
                   classNames={{
                     indicator: 'bg-secondary-500'
                   }}
-                  value={grade.value}
+                  value={+grade.value}
                   maxValue={10}
                   size='sm'
                 />
@@ -109,7 +108,7 @@ export default function GradesCard({
             {grades.map((grade, index) => (
               <div key={index} className='flex items-center gap-2'>
                 <label className='text-[0.875rem] font-semibold text-primary-900'>
-                  {grade.teacher}
+                  {grade.teacher.name}
                 </label>
               </div>
             ))}
@@ -123,7 +122,7 @@ export default function GradesCard({
             {grades.map((grade, index) => (
               <div key={index} className='flex items-center gap-2'>
                 <label className='text-[0.875rem] font-semibold text-primary-900'>
-                  {grade.date.toDateString()}
+                  {new Date(grade.date).toLocaleDateString()}
                 </label>
               </div>
             ))}

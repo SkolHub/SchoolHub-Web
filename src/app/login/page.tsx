@@ -6,9 +6,61 @@ import Logo from '@/components/logo';
 import { motion } from 'framer-motion';
 import { RefObject, useEffect, useRef, useState } from 'react';
 import LogoExpanded from '@/components/logo-expanded';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import * as yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
+import api from '@/api/api';
+import { useRouter } from 'next/navigation';
+import { useToast } from '@/components/ui/use-toast';
+
+interface IFormInput {
+  user: string;
+  password: string;
+}
 
 export default function Page() {
   const formRef = useRef<HTMLDivElement>(null);
+  const router = useRouter();
+  const { toast } = useToast();
+
+  const schema = yup.object({
+    user: yup.string().required('Username is required'),
+    password: yup
+      .string()
+      .required('Password is required')
+      .min(8, 'Password must have at least 8 characters')
+  });
+  const {
+    handleSubmit,
+    register,
+    formState: { errors }
+  } = useForm({
+    mode: 'onChange',
+    resolver: yupResolver(schema)
+  });
+  const onSubmit: SubmitHandler<IFormInput> = async (data) => {
+    try {
+      const res = await api.post('/auth/login', {
+        user: data.user,
+        password: data.password
+      });
+      localStorage.setItem('session', res.data.token);
+      document.cookie = `session=${res.data.token}; path=/`;
+      api.get('/profile').then((res) => {
+        if (res.data.role === 'student') {
+          document.cookie = `role=student; path=/`;
+          router.push('/student/classbook');
+        } else if (res.data.role === 'teacher') {
+          document.cookie = `role=teacher; path=/`;
+          router.push('/teacher/assignments');
+        }
+      });
+    } catch (e) {
+      toast({
+        title: "Can't sign you in!"
+      });
+    }
+  };
 
   const [canRender, setCanRender] = useState<boolean>(false);
 
@@ -25,20 +77,39 @@ export default function Page() {
         <LogoExpanded className='hidden sm:block' />
         <Logo className='block sm:hidden' />
         <div className='flex w-full flex-col gap-6'>
-          <form className='flex w-full flex-col items-center gap-9'>
+          <form
+            className='flex w-full flex-col items-center gap-9'
+            onSubmit={handleSubmit(onSubmit)}
+          >
             <h1 className='pt-4 text-xl font-bold text-secondary-900 sm:pt-10 sm:text-[2rem]'>
               Login
             </h1>
             <div className='flex w-full flex-col gap-4'>
-              <FormInput placeholder='User...' label='User' />
-              <FormInput placeholder='Password...' label='Password' password />
+              <FormInput
+                register={register('user')}
+                error={errors.user?.message}
+                placeholder='User...'
+                label='User'
+              />
+              <FormInput
+                register={register('password')}
+                error={errors.password?.message}
+                placeholder='Password...'
+                label='Password'
+                password
+              />
             </div>
             <PrimaryButton type='submit' className='w-full'>
               Login
             </PrimaryButton>
           </form>
           <div className='flex items-center justify-between gap-4'>
-            <span className='text-xs font-semibold text-neutral-800 sm:text-base'>
+            <span
+              onClick={() => {
+                router.push('/student/classbook');
+              }}
+              className='text-xs font-semibold text-neutral-800 sm:text-base'
+            >
               Forgot your password? Click here to reset
             </span>
             <i className='fa fa-arrow-right !hidden cursor-pointer text-2xl text-black sm:!flex' />

@@ -1,11 +1,9 @@
+import { Absence } from '@/api/grade';
+
 export default function StudentAbsencesCard({
   absences
 }: {
-  absences: {
-    excused: boolean;
-    teacher: string;
-    date: Date;
-  }[];
+  absences: Absence[];
 }) {
   return (
     <div className='flex flex-col gap-4 rounded-xl bg-white p-4'>
@@ -22,7 +20,7 @@ export default function StudentAbsencesCard({
             {absences.map((absence, index) => (
               <div key={index} className='flex items-center gap-2'>
                 <label className='text-[0.875rem] font-semibold text-primary-900'>
-                  {absence.date.toDateString()}
+                  {new Date(absence.date).toDateString()}
                 </label>
               </div>
             ))}

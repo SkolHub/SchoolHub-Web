@@ -1,112 +1,23 @@
-import NavWrapper from '@/components/nav-bar/nav-wrapper';
-import { StudentSubjectModel } from '@/lib/types';
-import StudentClass from '@/components/nav-bar/student-class';
+'use client';
 
-const schoolClasses: {
-  title: string;
-  subjects: StudentSubjectModel[];
-}[] = [
-  {
-    title: 'Clasa 10D',
-    subjects: [
-      {
-        title: 'Matematică',
-        teachers: ['Prof. Ionescu', 'Dr. Popescu'],
-        icon: 'hat'
-      },
-      {
-        title: 'Fizică',
-        teachers: ['Dr. Georgescu'],
-        icon: 'tube'
-      },
-      {
-        title: 'Chimie',
-        teachers: ['Prof. Radu'],
-        icon: 'flask'
-      },
-      {
-        title: 'Biologie',
-        teachers: ['Dr. Munteanu'],
-        icon: 'leaf'
-      },
-      {
-        title: 'Istorie',
-        teachers: ['Prof. Iancu'],
-        icon: 'book'
-      },
-      {
-        title: 'Geografie',
-        teachers: ['Dr. Luca'],
-        icon: 'compass'
-      },
-      {
-        title: 'Engleză',
-        teachers: ['Prof. Smith'],
-        icon: 'books'
-      },
-      {
-        title: 'Sport',
-        teachers: ['Prof. Andrei'],
-        icon: 'todo'
-      },
-      {
-        title: 'Informatica',
-        teachers: ['Dr. Marin'],
-        icon: 'computer'
-      },
-      {
-        title: 'Muzică',
-        teachers: ['Prof. Tudor'],
-        icon: 'todo'
-      },
-      {
-        title: 'Arte Plastice',
-        teachers: ['Prof. Elena'],
-        icon: 'crayons'
-      },
-      {
-        title: 'Limba Franceză',
-        teachers: ['Dr. Dupont'],
-        icon: 'book'
-      },
-      {
-        title: 'Literatură',
-        teachers: ['Prof. Dima'],
-        icon: 'books'
-      },
-      {
-        title: 'Educație Civică',
-        teachers: ['Prof. Costin'],
-        icon: 'hat'
-      },
-      {
-        title: 'Tehnologie',
-        teachers: ['Dr. Marius'],
-        icon: 'computer'
-      }
-    ]
-  },
-  {
-    title: 'Other',
-    subjects: [
-      {
-        title: 'ACSL',
-        teachers: ['Prof. Voicu'],
-        icon: 'computer'
-      },
-      {
-        title: 'InfoEducație',
-        teachers: ['Dr. Marcu'],
-        icon: 'computer'
-      }
-    ]
-  }
-];
+import NavWrapper from '@/components/nav-bar/nav-wrapper';
+import StudentClass from '@/components/nav-bar/student-class';
+import { useGetStudentSubjectsWithStats } from '@/api/subject';
 
 export default function StudentNav() {
+  let subjects = useGetStudentSubjectsWithStats();
+
+  if (subjects.isPending) {
+    return <NavWrapper>Loading...</NavWrapper>;
+  }
+
+  if (subjects.isError) {
+    return <NavWrapper>Error: {subjects.error.message}</NavWrapper>;
+  }
+
   return (
     <NavWrapper>
-      {schoolClasses.map((schoolClass, index) => (
+      {subjects.data.map((schoolClass, index) => (
         <StudentClass key={index} {...schoolClass} />
       ))}
     </NavWrapper>

@@ -45,7 +45,7 @@ export default function SubjectHeaderCard({
           <div className='border-left-white/70 h-10 self-center border-l-1' />
           <div className='flex grow basis-0 flex-col items-center'>
             <label className='text-base font-semibold text-green-600'>
-              {average}
+              {average.toFixed(2)}
             </label>
             <span className='text-center text-xs font-medium text-primary-700'>
               average
@@ -70,14 +70,6 @@ export default function SubjectHeaderCard({
             </span>
           </div>
           <div className='border-left-white/70 h-10 self-center border-l-1' />
-          <div className='flex grow basis-0 flex-col items-center'>
-            <label className='text-base font-semibold text-yellow-600'>
-              {assessmentChance}%
-            </label>
-            <span className='text-center text-xs font-medium text-primary-700'>
-              change of assessment
-            </span>
-          </div>
         </div>
       </div>
     </div>

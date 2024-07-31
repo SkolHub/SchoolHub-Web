@@ -1,16 +1,12 @@
 import AssignmentCard from '@/components/assignment-card';
+import { Post } from '@/api/post';
 
 export default function AssignmentColumn({
   title,
   assignments
 }: {
   title: string;
-  assignments: {
-    title: string;
-    subject: string;
-    icon: string;
-    due: Date;
-  }[];
+  assignments: Post[];
 }) {
   return (
     <div className='flex w-[20.5rem] min-w-fit flex-col gap-5 rounded-[1.25rem] bg-white/60 px-4 pb-4 pt-5'>

@@ -1,5 +1,5 @@
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import TeacherClass from '@/components/nav-bar/teacher-class';
+import TeacherClassCard from '@/components/nav-bar/teacher-class-card';
 
 const schoolClasses: {
   schoolClasses: string[];
@@ -133,7 +133,7 @@ export default function TeacherSheetNav() {
       <SheetContent className='bg-white-overlap pb-0 pt-12' side='left'>
         <div className='flex h-full flex-col gap-2 overflow-auto pb-6 scrollbar-hide'>
           {schoolClasses.map((schoolClass, index) => (
-            <TeacherClass key={index} {...schoolClass} />
+            <TeacherClassCard key={index} {...schoolClass} />
           ))}
         </div>
       </SheetContent>
